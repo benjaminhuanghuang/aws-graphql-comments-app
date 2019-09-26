@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eux
+
+bin/clean
+bin/build
+
+DESTINATION_DIR=${DESTINATION_DIR:-tmp/dist}
+
+BUCKET=`bin/get-value static_site_bucket`
+AWS_CLOUDFRONT_DISTRIBUTION_ID=`bin/get-value cloudfront_distribution_id`
+
+bin/aws s3 sync $DESTINATION_DIR s3://$BUCKET --delete
+bin/aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths /index.html /js/config.js

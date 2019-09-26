@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eux
+
+bin/terraform init
+bin/terraform apply -auto-approve
+bin/deploy-static
