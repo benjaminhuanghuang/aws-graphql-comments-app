@@ -1,0 +1,129 @@
+{
+  "service": {
+    "service": "ben-gladnews",
+    "serviceObject": {
+      "name": "ben-gladnews"
+    },
+    "provider": {
+      "stage": "dev",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)*]+?)}",
+      "name": "aws",
+      "region": "us-west-2",
+      "runtime": "nodejs8.10",
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketEncryption": {
+                "ServerSideEncryptionConfiguration": [
+                  {
+                    "ServerSideEncryptionByDefault": {
+                      "SSEAlgorithm": "AES256"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "WebSite": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "WebsiteConfiguration": {
+                "ErrorDocument": "index.html",
+                "IndexDocument": "index.html"
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "WebSiteUrl": {
+            "Value": {
+              "Fn::GetAtt": [
+                "WebSite",
+                "WebsiteURL"
+              ]
+            }
+          },
+          "WebSiteBucket": {
+            "Value": {
+              "Ref": "WebSite"
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketEncryption": {
+                "ServerSideEncryptionConfiguration": [
+                  {
+                    "ServerSideEncryptionByDefault": {
+                      "SSEAlgorithm": "AES256"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      }
+    },
+    "pluginsData": {},
+    "functions": {},
+    "resources": {
+      "Outputs": {
+        "WebSiteUrl": {
+          "Value": {
+            "Fn::GetAtt": [
+              "WebSite",
+              "WebsiteURL"
+            ]
+          }
+        },
+        "WebSiteBucket": {
+          "Value": {
+            "Ref": "WebSite"
+          }
+        }
+      },
+      "Resources": {
+        "WebSite": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "WebsiteConfiguration": {
+              "ErrorDocument": "index.html",
+              "IndexDocument": "index.html"
+            }
+          }
+        }
+      }
+    },
+    "serviceFilename": "serverless.yml",
+    "layers": {}
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/ben-gladnews/dev/1569476014361-2019-09-26T05:33:34.361Z",
+    "artifact": ""
+  }
+}
